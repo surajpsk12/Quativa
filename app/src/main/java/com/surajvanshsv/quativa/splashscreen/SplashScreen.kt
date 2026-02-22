@@ -34,6 +34,15 @@ fun SplashScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize().alpha(0.7f).scale(1.5f),
 
         )
+        Text(
+            text = "Quativa",
+            color = Color.White,
+            modifier = Modifier.alpha(0.7f)
+                .align(Alignment.Center)
+                .padding(top = 80.dp),
+            fontSize = 72.sp,
+            fontFamily = FontFamily.Cursive
+        )
     }
 }
 
