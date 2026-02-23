@@ -1,8 +1,7 @@
 package com.surajvanshsv.quativa.screens.home
 
-import android.view.RoundedCorner
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,7 +46,7 @@ fun QuoteCardHome(
         modifier = modifier
             .fillMaxSize()
             .border(
-                width = 1.dp,
+                width = 0.dp,
                 brush = borderGradient,
                 shape = RoundedCornerShape(12.dp)
             ),
@@ -56,7 +54,7 @@ fun QuoteCardHome(
         colors = CardDefaults.cardColors(
             containerColor = Color.Black.copy(alpha = 0.5f)
         ),
-        elevation = CardDefaults.elevatedCardElevation(8.dp)
+        elevation = CardDefaults.elevatedCardElevation(16.dp)
     ) {
         Column(modifier=Modifier
             .fillMaxWidth()
@@ -124,9 +122,8 @@ fun QuoteCardHome(
                     .fillMaxWidth()
                     .padding(end = 36.dp, top = 20.dp)
             )
-
-            // like share and donwload button bar
-            Spacer(modifier.weight(1f))
+            // like share and download button bar
+            Spacer(Modifier.weight(1f))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -142,6 +139,7 @@ fun QuoteCardHome(
                         .padding(12.dp)
                         .height(27.dp)
                         .width(27.dp)
+                        .clickable(onClick = {})
                 )
                 //share button
                 Icon(
@@ -152,6 +150,7 @@ fun QuoteCardHome(
                         .padding(12.dp)
                         .height(27.dp)
                         .width(27.dp)
+                        .clickable(onClick = {})
                 )
                 // download button
                 Icon(
@@ -162,6 +161,7 @@ fun QuoteCardHome(
                         .padding(12.dp)
                         .height(27.dp)
                         .width(27.dp)
+                        .clickable(onClick = {})
                 )
 
             }

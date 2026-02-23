@@ -1,10 +1,16 @@
 package com.surajvanshsv.quativa.screens.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -20,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.surajvanshsv.quativa.R
 import com.surajvanshsv.quativa.model.Quote
 
@@ -28,8 +36,14 @@ val InkutAntiqua = FontFamily(
 )
 
 @Composable
-fun HomeScreen(){
-    Scaffold(modifier = Modifier.fillMaxSize()) {innerPadding ->
+fun HomeScreen(
+    navController : NavController
+){
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
+        },
+        modifier = Modifier.fillMaxSize()) {innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -49,8 +63,9 @@ fun HomeScreen(){
                 modifier = Modifier.alpha(0.7f)
                     .padding(16.dp)
                     .align(Alignment.CenterHorizontally),
-                fontSize = 62.sp,
-                fontFamily = FontFamily.Cursive
+                fontSize = 42.sp,
+                fontFamily = FontFamily.Cursive,
+                lineHeight = 42.sp
             )
 
             // Text Quote of the day
@@ -64,17 +79,55 @@ fun HomeScreen(){
                 fontFamily = InkutAntiqua,
                 fontWeight = FontWeight(400),
                 fontStyle = FontStyle.Normal,
-                lineHeight = 100.sp,
+                lineHeight = 35.sp,
                 maxLines = 1
             )
             // card
-            QuoteCardHome(quote = Quote(
-                author = "Suraj",
-                body = "This is a quote which is very long and its hist so long ",
-                id = 1
-            ),
-                modifier = Modifier.padding(start = 18.dp, end = 18.dp, bottom = 130.dp)
+
+            QuoteCardHome(
+                quote = Quote(
+                    author = "Suraj",
+                    body = "This is a quote which is very long and its hist so long ",
+                    id = 1
+                ),
+                modifier = Modifier
+                    .weight(1f) // This pushes the button to the bottom
+                    .padding(start = 18.dp, end = 18.dp, top = 0.dp, bottom = 12.dp)
             )
+
+            Box(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(bottom = 32.dp,end = 18.dp)
+                    .width(160.dp)
+                    .height(50.dp)
+                    .border(
+                        width = 1.dp,
+                        brush = Brush.linearGradient(
+                            colors = listOf(Color.White,Color.White)
+                        ),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+            ){
+                Button(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.fillMaxSize()
+                        .align(Alignment.Center),
+                    shape = RoundedCornerShape(25.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent
+                    )
+                ) {
+                    Text(
+                        text = "New Quote",
+                        color = Color.White,
+                        fontSize = 16.sp,
+                        fontFamily = InkutAntiqua,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                }
+            }
 
 
 
@@ -86,6 +139,7 @@ fun HomeScreen(){
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview(){
-    HomeScreen()
+    val dummyNavController = NavController(LocalContext.current)
+    HomeScreen(navController =dummyNavController )
 }
 
