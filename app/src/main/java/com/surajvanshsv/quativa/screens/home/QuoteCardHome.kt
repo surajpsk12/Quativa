@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -57,54 +58,75 @@ fun QuoteCardHome(
         ),
         elevation = CardDefaults.elevatedCardElevation(8.dp)
     ) {
-        Column(modifier=Modifier.fillMaxWidth().padding(20.dp)) {
+        Column(modifier=Modifier
+            .fillMaxWidth()
+            .padding(20.dp)) {
             // 1. Opening Quote
-            Text(
-                text = "“",
-                fontWeight = FontWeight.Bold,
-                fontStyle = FontStyle.Italic,
-                fontSize = 60.sp,
-                color = Color.White,
-                lineHeight = 20.sp,
-                modifier = Modifier.padding(start = 10.dp, top = 18.dp)
-            )
+            Row( modifier = Modifier.padding(start = 10.dp, top = 18.dp)) {
+                Text(
+                    text = ".",
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic,
+                    fontSize = 60.sp,
+                    color = Color.Red,
+                    lineHeight = 20.sp
+                )
+                Text(
+                    text = ".",
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic,
+                    fontSize = 60.sp,
+                    color = Color.Yellow,
+                    lineHeight = 20.sp
+                )
+                Text(
+                    text = ".",
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic,
+                    fontSize = 60.sp,
+                    color = Color.Green,
+                    lineHeight = 20.sp
+                )
+
+            }
             // 2. Quote Body
             Text(
                 text = quote.body,
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic,
-                fontSize = 28.sp,
+                fontSize = 22.sp,
                 color = Color.White,
                 modifier = Modifier.padding(horizontal = 20.dp)
             )
-            // 3. Closing Quote
-            Text(
-                text = "”",
-                fontWeight = FontWeight.Bold,
-                fontStyle = FontStyle.Italic,
-                fontSize = 60.sp,
-                lineHeight = 20.sp,
-                color = Color.White,
-                textAlign = TextAlign.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 10.dp)
-
-            )
+//            // 3. Closing Quote
+//            Text(
+//                text = "",
+//                fontWeight = FontWeight.Bold,
+//                fontStyle = FontStyle.Italic,
+//                fontSize = 60.sp,
+//                lineHeight = 20.sp,
+//                color = Color.White,
+//                textAlign = TextAlign.End,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(end = 10.dp)
+//
+//            )
             // 4. Author
             Text(
                 text = "- ${quote.author}",
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic,
                 fontSize = 28.sp,
-                color = Color(0xff27588C).copy(alpha = 0.8f),
+                color = Color(0xFFE6EA67).copy(alpha = 0.8f),
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 36.dp, top = 2.dp)
+                    .padding(end = 36.dp, top = 20.dp)
             )
 
             // like share and donwload button bar
+            Spacer(modifier.weight(1f))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -116,7 +138,8 @@ fun QuoteCardHome(
                     painter = painterResource(id = R.drawable.likeicon01),
                     contentDescription = "like icon",
                     tint = Color.White,
-                    modifier = Modifier.padding( 12.dp)
+                    modifier = Modifier
+                        .padding(12.dp)
                         .height(27.dp)
                         .width(27.dp)
                 )
@@ -125,7 +148,8 @@ fun QuoteCardHome(
                     painter = painterResource(id = R.drawable.img_1),
                     contentDescription = "like icon",
                     tint = Color.White,
-                    modifier = Modifier.padding(12.dp)
+                    modifier = Modifier
+                        .padding(12.dp)
                         .height(27.dp)
                         .width(27.dp)
                 )
@@ -134,7 +158,8 @@ fun QuoteCardHome(
                     painter = painterResource(id = R.drawable.img_3),
                     contentDescription = "like icon",
                     tint = Color.White,
-                    modifier = Modifier.padding(12.dp)
+                    modifier = Modifier
+                        .padding(12.dp)
                         .height(27.dp)
                         .width(27.dp)
                 )

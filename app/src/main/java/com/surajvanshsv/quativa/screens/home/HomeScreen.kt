@@ -72,7 +72,9 @@ fun HomeScreen(){
                 author = "Suraj",
                 body = "This is a quote which is very long and its hist so long ",
                 id = 1
-            ), modifier = Modifier.fillMaxWidth())
+            ),
+                modifier = Modifier.padding(start = 18.dp, end = 18.dp, bottom = 130.dp)
+            )
 
 
 
