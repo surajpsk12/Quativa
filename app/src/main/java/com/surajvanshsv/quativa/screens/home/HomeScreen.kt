@@ -43,7 +43,8 @@ fun HomeScreen(
         bottomBar = {
             BottomNavigationBar(navController = navController)
         },
-        modifier = Modifier.fillMaxSize()) {innerPadding ->
+        modifier = Modifier.fillMaxSize()
+    ) {innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()

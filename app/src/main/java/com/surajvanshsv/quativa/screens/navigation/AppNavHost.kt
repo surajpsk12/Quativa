@@ -22,7 +22,7 @@ fun AppNavHost(){
             )
         }
         composable(Screens.Saved.route){
-            SavedScreen()
+            SavedScreen(navController)
         }
         composable(Screens.Profile.route){
             ProfileScreen()

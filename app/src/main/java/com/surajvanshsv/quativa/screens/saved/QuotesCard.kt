@@ -1,4 +1,4 @@
-package com.surajvanshsv.quativa.screens.home
+package com.surajvanshsv.quativa.screens.saved
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -29,25 +29,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surajvanshsv.quativa.R
 import com.surajvanshsv.quativa.model.Quote
+import com.surajvanshsv.quativa.screens.home.QuoteCardHome
 
 @Composable
-fun QuoteCardHome(
+fun QuotesCard(
     quote: Quote,
-    modifier: Modifier,
+    modifier: Modifier
 ){
     val borderGradient = Brush.verticalGradient(
         0.0002f to Color(0xFF80919C), // 0.02%
         1.0f to Color(0xFFCAD2DA)     // 127.95% (Clamped to 1.0f for display)
     )
-
-
-
     Card(
-        modifier = modifier
+        modifier = Modifier.padding(8.dp)
             .fillMaxSize()
             .border(
                 width = 0.dp,
-                brush = borderGradient,
+                brush = borderGradient ,
                 shape = RoundedCornerShape(12.dp)
             ),
         shape = RoundedCornerShape(12.dp),
@@ -67,7 +65,8 @@ fun QuoteCardHome(
                     fontStyle = FontStyle.Italic,
                     fontSize = 60.sp,
                     color = Color.Red,
-                    lineHeight = 20.sp
+                    lineHeight = 20.sp,
+                    modifier = Modifier.padding(start = 4.dp)
                 )
                 Text(
                     text = ".",
@@ -92,25 +91,11 @@ fun QuoteCardHome(
                 text = quote.body,
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic,
-                fontSize = 22.sp,
+                fontSize = 18.sp,
                 color = Color.White,
-                maxLines = 5,
+                maxLines = 3,
                 modifier = Modifier.padding(horizontal = 20.dp)
             )
-//            // 3. Closing Quote
-//            Text(
-//                text = "",
-//                fontWeight = FontWeight.Bold,
-//                fontStyle = FontStyle.Italic,
-//                fontSize = 60.sp,
-//                lineHeight = 20.sp,
-//                color = Color.White,
-//                textAlign = TextAlign.End,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(end = 10.dp)
-//
-//            )
             // 4. Author
             Text(
                 text = "- ${quote.author}",
@@ -126,7 +111,7 @@ fun QuoteCardHome(
             // like share and download button bar
             Spacer(Modifier.weight(1f))
             Row(
-                modifier = Modifier
+                modifier = Modifier.padding(8.dp)
                     .fillMaxWidth()
                     .align(Alignment.End)
                     .padding(vertical = 10.dp),
@@ -153,17 +138,7 @@ fun QuoteCardHome(
                         .width(22.dp)
                         .clickable(onClick = {})
                 )
-                // download button
-                Icon(
-                    painter = painterResource(id = R.drawable.img_3),
-                    contentDescription = "like icon",
-                    tint = Color.White,
-                    modifier = Modifier
-                        .padding(12.dp)
-                        .height(22.dp)
-                        .width(22.dp)
-                        .clickable(onClick = {})
-                )
+
 
             }
 
@@ -174,11 +149,11 @@ fun QuoteCardHome(
 
 @Preview(showBackground = true)
 @Composable
-fun QuoteCardHomePreview(){
-    QuoteCardHome(
+fun QuotesCardPreview(){
+    QuotesCard(
         quote = Quote(
             author = "Suraj",
-            body = "This is a quote which is very long and its hist so long ",
+            body = " quote 1 ",
             id = 1
         ),
         modifier = Modifier

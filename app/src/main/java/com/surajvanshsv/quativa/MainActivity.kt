@@ -28,3 +28,7 @@ class MainActivity : ComponentActivity() {
 }
 
 
+// ab saved screen design karo . almost same hia to sb cheej copy ho sakta hai .
+// fir profile desing karo . uss dummy data everywhere if needed .
+
+
