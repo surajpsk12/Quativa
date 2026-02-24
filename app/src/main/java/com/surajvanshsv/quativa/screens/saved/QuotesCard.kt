@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -130,6 +132,18 @@ fun QuotesCard(
                 //share button
                 Icon(
                     painter = painterResource(id = R.drawable.img_1),
+                    contentDescription = "like icon",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .padding(12.dp)
+                        .height(22.dp)
+                        .width(22.dp)
+                        .clickable(onClick = {})
+                )
+
+                //delete button
+                Icon(
+                    imageVector = Icons.Default.Delete,
                     contentDescription = "like icon",
                     tint = Color.White,
                     modifier = Modifier
