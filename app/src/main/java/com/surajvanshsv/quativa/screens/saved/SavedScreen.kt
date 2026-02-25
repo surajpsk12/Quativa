@@ -66,7 +66,7 @@ fun SavedScreen(
                     .align(Alignment.CenterHorizontally),
 
             )
-            // cards list
+            // cards list dummy , change to view model calls
             val listOfQuotes = listOf(
                 Quote(
                     author = "Suraj",
