@@ -25,7 +25,6 @@ fun DeveloperCard(
     title : String ,
     desc : String
 ){
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
