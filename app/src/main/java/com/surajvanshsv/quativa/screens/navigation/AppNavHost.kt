@@ -7,15 +7,27 @@ import androidx.navigation.compose.rememberNavController
 import com.surajvanshsv.quativa.screens.home.HomeScreen
 import com.surajvanshsv.quativa.screens.profile.ProfileScreen
 import com.surajvanshsv.quativa.screens.saved.SavedScreen
+import com.surajvanshsv.quativa.splashscreen.SplashScreen
 
 @Composable
 fun AppNavHost(){
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Screens.Home.route,
+        startDestination = "splash",
         route = "root_graph"
     ){
+        composable("splash") {
+            SplashScreen(
+                    onTimeOut = {
+                        navController.navigate(Screens.Home.route){
+                            popUpTo("splash"){
+                                inclusive = true
+                            }
+                        }
+                    }
+            )
+        }
         composable(Screens.Home.route){
             HomeScreen(
                     navController = navController

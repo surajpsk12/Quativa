@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Quativa.Custom" parent="Theme.Quativa">
+        <item name="android:windowSplashScreenBackground">#23354CFF</item>
+    </style>
+</resources>
