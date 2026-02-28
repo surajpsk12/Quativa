@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.surajvanshsv.quativa.model.Quote
 import com.surajvanshsv.quativa.repository.QuoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,6 +24,25 @@ class QuoteViewModel @Inject constructor(
     init {
         getQuote()
     }
+
+
+    // saved quote logics
+    val allQuote : Flow<List<Quote>> = quoteRepository.quoteItemFromDB
+
+    fun insertQuote(quote: Quote) {
+        viewModelScope.launch {
+            quoteRepository.insertQuote(quote)
+        }
+    }
+
+    fun deleteQuoteItem(quote: Quote) {
+        viewModelScope.launch {
+            quoteRepository.deleteQuoteItem(quote)
+        }
+    }
+
+
+
 
 
     fun getQuote(){

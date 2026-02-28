@@ -17,9 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.surajvanshsv.quativa.R
 import com.surajvanshsv.quativa.screens.home.BottomNavigationBar
+import com.surajvanshsv.quativa.viewmodels.QuoteViewModel
 
 @Composable
 fun ProfileScreen(

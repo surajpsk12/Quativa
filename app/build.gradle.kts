@@ -68,6 +68,19 @@ dependencies {
     
     // Splashscreen
     implementation("androidx.core:core-splashscreen:1.0.1")
+    // room
+    val room_version = "2.6.1"
+
+    // Room base library
+    implementation("androidx.room:room-runtime:$room_version")
+
+    // Kotlin Extensions and Coroutines support for Room (Important!)
+    implementation("androidx.room:room-ktx:$room_version")
+
+    // Annotation processor using KSP (matches your Hilt setup)
+    ksp("androidx.room:room-compiler:$room_version")
+
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -33,7 +33,10 @@ import com.surajvanshsv.quativa.model.Quote
 @Composable
 fun QuoteCardHome(
     quote: Quote?,
-    modifier: Modifier
+    modifier: Modifier,
+    onLikeClick: () -> Unit ,
+    onShareClick: () -> Unit ,
+    onDownloadClick : ()-> Unit
 ){
     val borderGradient = Brush.verticalGradient(
         0.0002f to Color(0xFF80919C), // 0.02%
@@ -141,7 +144,7 @@ fun QuoteCardHome(
                         .padding(12.dp)
                         .height(22.dp)
                         .width(22.dp)
-                        .clickable(onClick = {})
+                        .clickable(onClick = onLikeClick)
                 )
                 //share button
                 Icon(
@@ -152,7 +155,7 @@ fun QuoteCardHome(
                         .padding(12.dp)
                         .height(22.dp)
                         .width(22.dp)
-                        .clickable(onClick = {})
+                        .clickable(onClick = onShareClick)
                 )
                 // download button
                 Icon(
@@ -163,7 +166,7 @@ fun QuoteCardHome(
                         .padding(12.dp)
                         .height(22.dp)
                         .width(22.dp)
-                        .clickable(onClick = {})
+                        .clickable(onClick = onDownloadClick)
                 )
 
             }
@@ -182,6 +185,9 @@ fun QuoteCardHomePreview(){
             body = "This is a quote which is very long and its hist so long ",
             id = 1
         ),
-        modifier = Modifier
+        modifier = Modifier,
+        onLikeClick = {},
+        onShareClick = {},
+        onDownloadClick = {}
     )
 }

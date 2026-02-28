@@ -31,19 +31,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surajvanshsv.quativa.R
 import com.surajvanshsv.quativa.model.Quote
-import com.surajvanshsv.quativa.screens.home.QuoteCardHome
 
 @Composable
 fun QuotesCard(
     quote: Quote,
-    modifier: Modifier
+    modifier: Modifier,
+    onDeleteClick: () -> Unit = {},
+    onShareClick: () -> Unit = {}
+
 ){
     val borderGradient = Brush.verticalGradient(
         0.0002f to Color(0xFF80919C), // 0.02%
         1.0f to Color(0xFFCAD2DA)     // 127.95% (Clamped to 1.0f for display)
     )
     Card(
-        modifier = Modifier.padding(8.dp)
+        modifier = modifier
+            .padding(8.dp)
             .fillMaxSize()
             .border(
                 width = 0.dp,
@@ -132,25 +135,25 @@ fun QuotesCard(
                 //share button
                 Icon(
                     painter = painterResource(id = R.drawable.img_1),
-                    contentDescription = "like icon",
+                    contentDescription = "share icon",
                     tint = Color.White,
                     modifier = Modifier
                         .padding(12.dp)
                         .height(22.dp)
                         .width(22.dp)
-                        .clickable(onClick = {})
+                        .clickable(onClick = onShareClick)
                 )
 
                 //delete button
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "like icon",
+                    contentDescription = "delete icon",
                     tint = Color.White,
                     modifier = Modifier
                         .padding(12.dp)
                         .height(22.dp)
                         .width(22.dp)
-                        .clickable(onClick = {})
+                        .clickable(onClick = onDeleteClick)
                 )
 
 

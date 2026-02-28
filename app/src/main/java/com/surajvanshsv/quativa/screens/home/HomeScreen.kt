@@ -2,7 +2,6 @@ package com.surajvanshsv.quativa.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,8 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -45,14 +42,14 @@ val InkutAntiqua = FontFamily(
 @Composable
 fun HomeScreen(
     navController: NavController,
-    quoteViewModel: QuoteViewModel? = hiltViewModel(),
+    quoteViewModel: QuoteViewModel = hiltViewModel(),
 ){
 
     // Fetch quote on first launch
     LaunchedEffect(Unit) {
-        quoteViewModel?.getQuote()
+        quoteViewModel.getQuote()
     }
-    val quote by quoteViewModel?.quote?.collectAsState() ?: remember { mutableStateOf(null) }
+    val quote by quoteViewModel.quote.collectAsState()
 
     Scaffold(
         bottomBar = {
@@ -103,6 +100,9 @@ fun HomeScreen(
 
             QuoteCardHome(
                 quote = quote,
+                onLikeClick = { quote?.let { quoteViewModel.insertQuote(it) } },
+                onShareClick = { /* Handle share click */ },
+                onDownloadClick = { /* Handle download click */ },
                 modifier = Modifier
                     .weight(1f) // This pushes the button to the bottom
                     .padding(start = 18.dp, end = 18.dp, top = 0.dp, bottom = 12.dp)
@@ -123,7 +123,7 @@ fun HomeScreen(
                     )
             ){
                 Button(
-                    onClick = { quoteViewModel?.getQuote() },
+                    onClick = { quoteViewModel.getQuote() },
                     modifier = Modifier
                         .fillMaxSize()
                         .align(Alignment.Center),
