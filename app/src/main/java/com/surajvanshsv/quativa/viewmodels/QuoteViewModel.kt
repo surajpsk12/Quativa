@@ -3,14 +3,16 @@ package com.surajvanshsv.quativa.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.surajvanshsv.quativa.model.Quote
-import com.surajvanshsv.quativa.model.QuoteResponse
 import com.surajvanshsv.quativa.repository.QuoteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Response
+import javax.inject.Inject
 
-class QuoteViewModel(
+
+@HiltViewModel
+class QuoteViewModel @Inject constructor(
     private val quoteRepository: QuoteRepository
 ): ViewModel() {
 

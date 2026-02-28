@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.surajvanshsv.quativa.R
 import com.surajvanshsv.quativa.viewmodels.QuoteViewModel
@@ -44,7 +45,7 @@ val InkutAntiqua = FontFamily(
 @Composable
 fun HomeScreen(
     navController: NavController,
-    quoteViewModel: QuoteViewModel? = null,
+    quoteViewModel: QuoteViewModel? = hiltViewModel(),
 ){
 
     // Fetch quote on first launch

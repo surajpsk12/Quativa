@@ -1,11 +1,10 @@
 package com.surajvanshsv.quativa.screens.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.surajvanshsv.quativa.repository.QuoteRepository
-import com.surajvanshsv.quativa.retrofit.RetrofitInstance
 import com.surajvanshsv.quativa.screens.home.HomeScreen
 import com.surajvanshsv.quativa.screens.profile.ProfileScreen
 import com.surajvanshsv.quativa.screens.saved.SavedScreen
@@ -15,9 +14,7 @@ import com.surajvanshsv.quativa.viewmodels.QuoteViewModel
 @Composable
 fun AppNavHost(){
     val navController = rememberNavController()
-    val apiInterface = RetrofitInstance().apiInterface
-    val repository = QuoteRepository(apiInterface)
-    val viewModel = QuoteViewModel(repository)
+    val viewModel : QuoteViewModel = hiltViewModel()
     NavHost(
         navController = navController,
         startDestination = "splash",
