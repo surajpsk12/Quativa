@@ -42,6 +42,7 @@ fun QuoteCardHome(
 
 
 
+
     Card(
         modifier = modifier
             .fillMaxSize()
