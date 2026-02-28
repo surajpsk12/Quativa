@@ -1,1 +1,3 @@
 /build
+# Exclude the Todo file
+app/src/main/java/Todo

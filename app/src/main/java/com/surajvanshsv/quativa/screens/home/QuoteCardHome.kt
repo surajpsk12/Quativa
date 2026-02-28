@@ -32,8 +32,8 @@ import com.surajvanshsv.quativa.model.Quote
 
 @Composable
 fun QuoteCardHome(
-    quote: Quote,
-    modifier: Modifier,
+    quote: Quote?,
+    modifier: Modifier
 ){
     val borderGradient = Brush.verticalGradient(
         0.0002f to Color(0xFF80919C), // 0.02%
@@ -89,7 +89,7 @@ fun QuoteCardHome(
             }
             // 2. Quote Body
             Text(
-                text = quote.body,
+                text = quote?.body ?: "Loading today's inspiration...",
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic,
                 fontSize = 22.sp,
@@ -113,7 +113,7 @@ fun QuoteCardHome(
 //            )
             // 4. Author
             Text(
-                text = "- ${quote.author}",
+                text = "- ${quote?.author}",
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic,
                 fontSize = 16.sp,
