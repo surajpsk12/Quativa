@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -16,6 +17,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -42,6 +47,9 @@ fun QuoteCardHome(
         0.0002f to Color(0xFF80919C), // 0.02%
         1.0f to Color(0xFFCAD2DA)     // 127.95% (Clamped to 1.0f for display)
     )
+
+    var isLiked by remember(quote) { mutableStateOf(false) }
+
 
 
 
@@ -128,7 +136,7 @@ fun QuoteCardHome(
                     .padding(end = 36.dp, top = 20.dp)
             )
             // like share and download button bar
-            Spacer(Modifier.weight(1f))
+            Spacer(Modifier.weight(1f)) // this is for putting button in end
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -136,15 +144,20 @@ fun QuoteCardHome(
                     .padding(vertical = 10.dp),
             ) {
                 // like button
+                val likeIcon = if (isLiked) R.drawable.heart else R.drawable.likeicon01
+                val iconTint = if (isLiked) Color.Red else Color.White
                 Icon(
-                    painter = painterResource(id = R.drawable.likeicon01),
+                    painter = painterResource(id = likeIcon),
                     contentDescription = "like icon",
-                    tint = Color.White,
+                    tint = iconTint,
                     modifier = Modifier
                         .padding(12.dp)
-                        .height(22.dp)
-                        .width(22.dp)
-                        .clickable(onClick = onLikeClick)
+                        .size(22.dp)
+                        .clickable{
+                            isLiked = !isLiked
+                            // Handle like button click
+                            onLikeClick()
+                        }
                 )
                 //share button
                 Icon(

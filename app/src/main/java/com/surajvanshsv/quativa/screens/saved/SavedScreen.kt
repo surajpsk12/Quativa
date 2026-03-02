@@ -66,14 +66,14 @@ fun SavedScreen(
                 fontWeight = FontWeight.Bold
             )
             // search bar
-            MySearchBar(
-                query = "",
-                onQueryChange = {},
-                onSearch = {},
-                modifier = Modifier.padding(horizontal = 16.dp , vertical = 12.dp)
-                    .align(Alignment.CenterHorizontally),
-
-            )
+//            MySearchBar(
+//                query = "",
+//                onQueryChange = {},
+//                onSearch = {},
+//                modifier = Modifier.padding(horizontal = 16.dp , vertical = 12.dp)
+//                    .align(Alignment.CenterHorizontally),
+//
+//            )
 
             if(listOfQuotes.isEmpty()){
                 Text(

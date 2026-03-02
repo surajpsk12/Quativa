@@ -1,5 +1,6 @@
 package com.surajvanshsv.quativa.screens.saved
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -121,16 +123,20 @@ fun QuotesCard(
                     .align(Alignment.End)
                     .padding(vertical = 10.dp),
             ) {
+//                var isLiked = true
+//                var color = if (isLiked) Color.Red else Color.White
                 // like button
                 Icon(
-                    painter = painterResource(id = R.drawable.likeicon01),
+                    painter = painterResource(id = R.drawable.heart),
                     contentDescription = "like icon",
-                    tint = Color.White,
+                    tint = Color.Red,
                     modifier = Modifier
                         .padding(12.dp)
-                        .height(22.dp)
-                        .width(22.dp)
-                        .clickable(onClick = {})
+                        .size(24.dp)
+                        .clickable(onClick = {
+//                            isLiked = !isLiked
+                            // Handle like button click
+                        })
                 )
                 //share button
                 Icon(
@@ -151,8 +157,7 @@ fun QuotesCard(
                     tint = Color.White,
                     modifier = Modifier
                         .padding(12.dp)
-                        .height(22.dp)
-                        .width(22.dp)
+                        .size(22.dp)
                         .clickable(onClick = onDeleteClick)
                 )
 
