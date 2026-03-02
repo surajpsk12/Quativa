@@ -7,6 +7,10 @@ import android.provider.MediaStore
 import android.widget.Toast
 import android.os.Environment
 
+
+
+
+// to convert to image and save to gallery function
 fun saveBitmapToGallery(context: Context, bitmap: Bitmap, fileName: String) {
     val values = ContentValues().apply {
         put(MediaStore.Images.Media.DISPLAY_NAME, "$fileName.png")
