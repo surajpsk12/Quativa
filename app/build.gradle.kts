@@ -56,6 +56,7 @@ dependencies {
     
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.litert)
     ksp(libs.hilt.compiler)
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
@@ -79,7 +80,8 @@ dependencies {
 
     // Annotation processor using KSP (matches your Hilt setup)
     ksp("androidx.room:room-compiler:$room_version")
-
+    // to capture screen and convert to bitmap
+    implementation("dev.shreyaspatil:capturable:2.1.0")
 
 
     testImplementation(libs.junit)

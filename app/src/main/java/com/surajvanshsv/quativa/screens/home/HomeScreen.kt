@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.surajvanshsv.quativa.screens.home
 
 import androidx.compose.foundation.background
@@ -7,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -22,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -33,7 +37,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.surajvanshsv.quativa.R
+import com.surajvanshsv.quativa.sharecard.ShareQuoteCardItem
+import com.surajvanshsv.quativa.sharecard.saveBitmapToGallery
 import com.surajvanshsv.quativa.viewmodels.QuoteViewModel
+import dev.shreyaspatil.capturable.Capturable
+import dev.shreyaspatil.capturable.controller.rememberCaptureController
 
 val InkutAntiqua = FontFamily(
     Font(R.font.inknutantiquaregular, FontWeight.Normal)
@@ -50,6 +58,33 @@ fun HomeScreen(
         quoteViewModel.getQuote()
     }
     val quote by quoteViewModel.quote.collectAsState()
+    val context = LocalContext.current
+
+    val captureController = rememberCaptureController()
+    Box(modifier = Modifier.size(0.dp)) {
+        Capturable(
+            controller = captureController,
+            onCaptured = { bitmap, error ->
+                if (bitmap != null) {
+                    saveBitmapToGallery(
+                        context = context,
+                        bitmap = bitmap.asAndroidBitmap(),
+                        fileName = "Quativa_${System.currentTimeMillis()}"
+                    )
+                }
+            }
+        ) {
+            // This is the 9:16 high-quality card that will be saved
+            quote?.let {
+                ShareQuoteCardItem(
+                    quote = it,
+                    modifier = Modifier
+                        .width(360.dp)
+                        .height(640.dp)
+                )
+            }
+        }
+    }
 
     Scaffold(
         bottomBar = {
@@ -102,7 +137,7 @@ fun HomeScreen(
                 quote = quote,
                 onLikeClick = { quote?.let { quoteViewModel.insertQuote(it) } },
                 onShareClick = { /* Handle share click */ },
-                onDownloadClick = { /* Handle download click */ },
+                onDownloadClick = { captureController.capture()},
                 modifier = Modifier
                     .weight(1f) // This pushes the button to the bottom
                     .padding(start = 18.dp, end = 18.dp, top = 0.dp, bottom = 12.dp)
