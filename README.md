@@ -1,4 +1,4 @@
-# 📜 Quativa - AI-Powered Quotes App
+# 📜 Quativa -  Quotes App
 
 > **Quativa is a modern, high-performance Android application built with Jetpack Compose, Hilt, and Room. It leverages AI (LiteRT) for content generation and provides a fluid interface for discovering and sharing inspiring quotes.**
 
