@@ -1,5 +1,7 @@
 package com.surajvanshsv.quativa.screens.profile
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,42 +19,59 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.surajvanshsv.quativa.R
 import com.surajvanshsv.quativa.screens.home.BottomNavigationBar
-import com.surajvanshsv.quativa.viewmodels.QuoteViewModel
+import androidx.core.net.toUri
 
 @Composable
 fun ProfileScreen(
-    navController: NavController
+    navController: NavController,
 ){
     // Using a list for the social cards data
     val cardList = listOf(
         SocialsCardData(
+            icon = R.drawable.email,
+            name = "Email",
+            url = "mailto:sk658139@gmail.com"
+        ),
+        SocialsCardData(
             icon = R.drawable.mdi_linkedin,
-            name = "LinkedIn"
-        ), SocialsCardData(
+            name = "LinkedIn",
+            url = "https://www.linkedin.com/in/surajvansh12/"
+        ),
+        SocialsCardData(
             icon = R.drawable.github,
-            name = "Github"
+            name = "Github",
+            url = "https://github.com/surajpsk12"
         ),
         SocialsCardData(
             icon = R.drawable.instalogo2,
-            name = "Instagram"
+            name = "Instagram",
+            url = "https://www.instagram.com/surajvansh12/"
         ),
         SocialsCardData(
             icon = R.drawable.pajamas_twitter,
-            name = "Twitter"
-        ),
-        SocialsCardData(
-            icon = R.drawable.discordlogo,
-            name = "Discord"
+            name = "Twitter",
+            url = ""
         ),
         SocialsCardData(
             icon = R.drawable.aboutlogo,
-            name = "About App"
+            name = "About App",
+            url = ""
         )
     )
+
+
+    val context = LocalContext.current
+    val openUrl = { url : String ->
+        val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+        context.startActivity(intent)
+
+    }
+
+
+
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) },
@@ -72,8 +91,8 @@ fun ProfileScreen(
         ) {
             // developer card 
             DeveloperCard(
-                title = "Suraj Vansh",
-                desc = "sk658139@gmail.com"
+                title = "Suraj Kumar",
+                desc = "Android Developer"
             )
 
 
@@ -89,7 +108,11 @@ fun ProfileScreen(
                     SocialsCard(
                         icon = cardItem.icon,
                         name = cardItem.name,
-                        onClick = { /* Handle click */ }
+                        onClick = {
+                            if(cardItem.url.isNotEmpty()){
+                                openUrl(cardItem.url)
+                            }
+                        }
                     )
                 }
             }
@@ -99,7 +122,8 @@ fun ProfileScreen(
 
 data class SocialsCardData(
     val icon: Int,
-    val name: String
+    val name: String,
+    val url: String,
 )
 
 

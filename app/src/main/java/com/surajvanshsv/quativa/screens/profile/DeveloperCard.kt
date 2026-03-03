@@ -67,6 +67,6 @@ fun DeveloperCardPreview()
 {
     DeveloperCard(
         title = "Suraj Vansh",
-        desc = "Developer "
+        desc = "Android Developer "
     )
 }
