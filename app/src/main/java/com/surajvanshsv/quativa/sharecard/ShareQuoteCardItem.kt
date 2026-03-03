@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -28,15 +27,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.surajvanshsv.quativa.model.Quote
 
-// ── Theme Colors ─────────────────────────────────────────────────────────────
 private val BgDeep        = Color(0xFF0A0A0F)
 private val BgMid         = Color(0xFF12111A)
 private val BgCard        = Color(0xFF1A1826)
@@ -74,191 +72,126 @@ fun ShareQuoteCardItem(
                 .fillMaxSize()
                 .background(brush = cardBgGradient)
         ) {
-
             // ── Background decorative canvas ─────────────────────────────
             Canvas(modifier = Modifier.fillMaxSize()) {
-                // Soft purple glow top-left
                 drawCircle(
                     brush = Brush.radialGradient(
-                        colors = listOf(AccentPurple.copy(alpha = 0.18f), Color.Transparent),
-                        center = Offset(size.width * 0.1f, size.height * 0.12f),
-                        radius = size.width * 0.55f
+                        colors = listOf(AccentPurple.copy(alpha = 0.15f), Color.Transparent),
+                        center = Offset(size.width * 0.5f, size.height * 0.4f), // Centered glow
+                        radius = size.width * 0.8f
                     ),
-                    radius = size.width * 0.55f,
-                    center = Offset(size.width * 0.1f, size.height * 0.12f)
+                    radius = size.width * 0.8f,
+                    center = Offset(size.width * 0.5f, size.height * 0.4f)
                 )
-                // Teal glow bottom-right
+                // Teal glow bottom
                 drawCircle(
                     brush = Brush.radialGradient(
-                        colors = listOf(AccentTeal.copy(alpha = 0.10f), Color.Transparent),
-                        center = Offset(size.width * 0.85f, size.height * 0.82f),
-                        radius = size.width * 0.45f
+                        colors = listOf(AccentTeal.copy(alpha = 0.08f), Color.Transparent),
+                        center = Offset(size.width * 0.5f, size.height * 0.9f),
+                        radius = size.width * 0.6f
                     ),
-                    radius = size.width * 0.45f,
-                    center = Offset(size.width * 0.85f, size.height * 0.82f)
-                )
-                // Top gold streak
-                drawLine(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(Color.Transparent, GoldLight.copy(alpha = 0.35f), Color.Transparent)
-                    ),
-                    start = Offset(size.width * 0.1f, size.height * 0.01f),
-                    end = Offset(size.width * 0.9f, size.height * 0.01f),
-                    strokeWidth = 1.2f,
-                    cap = StrokeCap.Round
-                )
-                // Bottom gold streak
-                drawLine(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(Color.Transparent, GoldLight.copy(alpha = 0.25f), Color.Transparent)
-                    ),
-                    start = Offset(size.width * 0.1f, size.height * 0.99f),
-                    end = Offset(size.width * 0.9f, size.height * 0.99f),
-                    strokeWidth = 1.2f,
-                    cap = StrokeCap.Round
+                    radius = size.width * 0.6f,
+                    center = Offset(size.width * 0.5f, size.height * 0.9f)
                 )
             }
 
-            // ── Main content ──────────────────────────────────────────────
+            // ── Layout Structure ──────────────────────────────────────────
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 28.dp, vertical = 30.dp)
+                    .padding(horizontal = 32.dp, vertical = 40.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                // ── Header row: dots + top label ──────────────────────────
+                // 1. TOP SECTION: Header
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-                        listOf(
-                            Color(0xFFFF5F57),
-                            Color(0xFFFFBD2E),
-                            Color(0xFF28C840)
-                        ).forEach { dotColor ->
-                            Box(
-                                modifier = Modifier
-                                    .size(11.dp)
-                                    .clip(CircleShape)
-                                    .background(dotColor)
-                                    .border(0.5.dp, dotColor.copy(alpha = 0.6f), CircleShape)
-                            )
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        listOf(Color(0xFFFF5F57), Color(0xFFFFBD2E), Color(0xFF28C840)).forEach {
+                            Box(modifier = Modifier
+                                .size(12.dp)
+                                .clip(CircleShape)
+                                .background(it))
                         }
                     }
                     Text(
                         text = "QUATIVA",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = 4.sp,
+                        color = GoldLight.copy(alpha = 0.6f)
+                    )
+                }
+
+                // 2. MIDDLE SECTION: Pushes content to the center
+                Spacer(modifier = Modifier.weight(1f))
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Giant Quote Mark
+                    Text(
+                        text = "\u201C",
+                        fontSize = 120.sp,
+                        color = GoldLight.copy(alpha = 0.15f),
+                        lineHeight = 0.sp // Pulls text closer
+                    )
+
+                    Text(
+                        text = quote.body ?: "Inspiration loading...",
+                        fontWeight = FontWeight.SemiBold,
+                        fontStyle = FontStyle.Italic,
+                        fontSize = 26.sp,
+                        lineHeight = 38.sp,
+                        color = TextPrimary,
+                        textAlign = TextAlign.Center, // Centered text for 9:16
+                        modifier = Modifier.padding(bottom = 24.dp)
+                    )
+
+                    // Accent bar under quote
+                    Box(
+                        modifier = Modifier
+                            .width(60.dp)
+                            .height(2.dp)
+                            .background(
+                                Brush.horizontalGradient(listOf(GoldDark, GoldLight)),
+                                CircleShape
+                            )
+                    )
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Text(
+                        text = "— ${quote.author ?: "Unknown"}",
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 18.sp,
+                        color = GoldLight.copy(alpha = 0.8f),
+                        letterSpacing = 1.sp
+                    )
+                }
+
+                // 3. BOTTOM SECTION: Pushes everything up
+                Spacer(modifier = Modifier.weight(1.2f))
+
+                // Footer
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(0.4f)
+                            .height(0.5.dp)
+                            .background(DividerColor)
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "DAILY DOSE OF WISDOM",
                         fontSize = 9.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 3.sp,
-                        color = GoldLight.copy(alpha = 0.5f)
+                        color = TextSecondary.copy(alpha = 0.4f)
                     )
-                }
-
-                Spacer(modifier = Modifier.height(28.dp))
-
-                // ── Gold accent bar ───────────────────────────────────────
-                Box(
-                    modifier = Modifier
-                        .width(40.dp)
-                        .height(2.dp)
-                        .background(
-                            brush = Brush.horizontalGradient(listOf(GoldDark, GoldLight)),
-                            shape = RoundedCornerShape(50)
-                        )
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                // ── Giant ghost open-quote ────────────────────────────────
-                Text(
-                    text = "\u201C",
-                    fontSize = 100.sp,
-                    fontWeight = FontWeight.Black,
-                    color = GoldLight.copy(alpha = 0.10f),
-                    lineHeight = 60.sp,
-                    modifier = Modifier
-                        .offset(x = (-8).dp, y = 10.dp)
-                        .height(52.dp)
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                // ── Quote body ────────────────────────────────────────────
-                Text(
-                    text = quote.body ?: "Loading today\u2019s inspiration\u2026",
-                    fontWeight = FontWeight.Medium,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 21.sp,
-                    lineHeight = 34.sp,
-                    color = TextPrimary,
-                    maxLines = 7,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 4.dp)
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                // ── Author ────────────────────────────────────────────────
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .width(20.dp)
-                            .height(2.dp)
-                            .background(
-                                brush = Brush.horizontalGradient(listOf(GoldDark, GoldLight)),
-                                shape = RoundedCornerShape(50)
-                            )
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = quote.author ?: "Unknown",
-                        fontWeight = FontWeight.SemiBold,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 14.sp,
-                        color = GoldLight.copy(alpha = 0.9f),
-                        letterSpacing = 0.5.sp
-                    )
-                }
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                // ── Divider ───────────────────────────────────────────────
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(0.5.dp)
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                colors = listOf(Color.Transparent, DividerColor, DividerColor, Color.Transparent)
-                            )
-                        )
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // ── Footer ────────────────────────────────────────────────
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "\u25C6", fontSize = 7.sp, color = GoldLight.copy(alpha = 0.6f))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "SHARED VIA QUATIVA",
-                        fontSize = 9.sp,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 2.5.sp,
-                        color = TextSecondary.copy(alpha = 0.55f)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "\u25C6", fontSize = 7.sp, color = GoldLight.copy(alpha = 0.6f))
                 }
             }
         }

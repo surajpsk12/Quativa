@@ -20,6 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -39,6 +42,7 @@ import androidx.navigation.NavController
 import com.surajvanshsv.quativa.R
 import com.surajvanshsv.quativa.sharecard.ShareQuoteCardItem
 import com.surajvanshsv.quativa.sharecard.saveBitmapToGallery
+import com.surajvanshsv.quativa.sharecard.shareBitmap
 import com.surajvanshsv.quativa.viewmodels.QuoteViewModel
 import dev.shreyaspatil.capturable.Capturable
 import dev.shreyaspatil.capturable.controller.rememberCaptureController
@@ -61,30 +65,35 @@ fun HomeScreen(
     val context = LocalContext.current
 
     val captureController = rememberCaptureController()
+    var shareAction by remember { mutableStateOf("DOWNLOAD") }
+
+
+
+
+
     Box(modifier = Modifier.size(0.dp)) {
         Capturable(
             controller = captureController,
             onCaptured = { bitmap, error ->
-                if (bitmap != null) {
-                    saveBitmapToGallery(
-                        context = context,
-                        bitmap = bitmap.asAndroidBitmap(),
-                        fileName = "Quativa_${System.currentTimeMillis()}"
-                    )
+                bitmap?.let {
+                    val androidBitmap = it.asAndroidBitmap()
+                    if (shareAction == "SHARE") {
+                        shareBitmap(context, androidBitmap)
+                    } else {
+                        saveBitmapToGallery(context, androidBitmap, "Quativa_${System.currentTimeMillis()}")
+                    }
                 }
             }
         ) {
-            // This is the 9:16 high-quality card that will be saved
             quote?.let {
                 ShareQuoteCardItem(
                     quote = it,
-                    modifier = Modifier
-                        .width(360.dp)
-                        .height(640.dp)
+                    modifier = Modifier.width(360.dp).height(640.dp)
                 )
             }
         }
     }
+
 
     Scaffold(
         bottomBar = {
@@ -136,8 +145,14 @@ fun HomeScreen(
             QuoteCardHome(
                 quote = quote,
                 onLikeClick = { quote?.let { quoteViewModel.insertQuote(it) } },
-                onShareClick = { /* Handle share click */ },
-                onDownloadClick = { captureController.capture()},
+                onShareClick = {
+                    shareAction = "SHARE"
+                    captureController.capture()
+                },
+                onDownloadClick = {
+                    shareAction = "DOWNLOAD"
+                    captureController.capture()
+                },
                 modifier = Modifier
                     .weight(1f) // This pushes the button to the bottom
                     .padding(start = 18.dp, end = 18.dp, top = 0.dp, bottom = 12.dp)
