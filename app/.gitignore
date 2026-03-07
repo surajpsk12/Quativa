@@ -2,3 +2,6 @@
 # Exclude the Todo file
 app/src/main/java/Todo
 
+app/src/main/java/com/surajvanshsv/quativa/KeyProvider.kt
+
+
