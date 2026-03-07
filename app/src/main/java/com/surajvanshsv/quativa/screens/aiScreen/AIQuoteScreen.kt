@@ -111,7 +111,7 @@ fun AiQuoteScreen(
                         selected = selectedMood == mood,
                         onClick = {
                             selectedMood = mood
-                            quoteAIQuoteViewModel.generateQuote(mood)
+                            quoteAIQuoteViewModel.generateQuoteGroq(mood)
                         },
                         label = {
                             Text(mood,

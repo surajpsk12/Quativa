@@ -1,9 +1,12 @@
 package com.surajvanshsv.quativa.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.ai.client.generativeai.GenerativeModel
 import com.surajvanshsv.quativa.KeyProvider
+import com.surajvanshsv.quativa.model.GroqMessage
+import com.surajvanshsv.quativa.model.GroqRequest
 import com.surajvanshsv.quativa.model.Quote
 import com.surajvanshsv.quativa.repository.QuoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +24,7 @@ class AIQuoteViewModel @Inject constructor(
 
     private val generativeModel = GenerativeModel(
         modelName = "gemini-2.0-flash",
-        apiKey = KeyProvider.provideKey()
+        apiKey = KeyProvider.provideKeyGroq()
     )
 
     private val _aiQuote = MutableStateFlow<Quote?>(null)
@@ -31,12 +34,54 @@ class AIQuoteViewModel @Inject constructor(
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
 
-    fun generateQuote(mood : String) {
+    fun generateQuoteGroq(mood : String){
+        viewModelScope.launch {
+            _isLoading.value = true
+            _aiQuote.value = null
+
+            val apiKey = "Bearer ${KeyProvider.provideKeyGroq()}"
+            val prompt = "Generate a high-quality short  quote for someone feeling $mood. " +
+                    "Return length of 15-20 words. " +
+                    "Return ONLY the quote and author in this format: Quote content | Author. Do not say anything else."
+
+
+            try {
+                val request = GroqRequest(
+                    messages = listOf(GroqMessage(role = "user", content = prompt))
+                )
+
+                val response = repository.getGroqQuote(apiKey, request)
+                val resultText =response.choices.firstOrNull()?.message?.content
+                if(resultText !=null && resultText.contains("|")){
+                    val parts = resultText.split("|")
+                    _aiQuote.value = Quote(
+                        id = (0..100000).random(),
+                        body = parts[0].trim().replace("\"", ""),
+                        author = parts[1].trim()
+
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("GroqError", "Error: ${e.message}")
+                _aiQuote.value = Quote(
+                    id = -1,
+                    body = "Groq Connection Error: ${e.localizedMessage}",
+                    author = "Error")
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+
+
+    fun generateQuoteGemini(mood : String) {
         viewModelScope.launch {
             _isLoading.value = true
             _aiQuote.value = null
 
             val prompt = "Generate a high-quality inspirational quote for someone feeling $mood. " +
+                    "Return length of 15-20 words. " +
                     "Return only the quote and author in this format: Quote content | Author"
 
 

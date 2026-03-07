@@ -1,5 +1,7 @@
 package com.surajvanshsv.quativa.repository
 
+import com.surajvanshsv.quativa.model.GroqRequest
+import com.surajvanshsv.quativa.model.GroqResponse
 import com.surajvanshsv.quativa.model.Quote
 import com.surajvanshsv.quativa.model.QuoteResponse
 import com.surajvanshsv.quativa.retrofit.ApiInterface
@@ -28,6 +30,8 @@ class QuoteRepository @Inject constructor(
         quotesDAO.deleteQuoteItem(quote)
     }
 
+    suspend fun getGroqQuote(token: String, request: GroqRequest): GroqResponse {
+        return apiInterface.getGroqQuote(token, request)}
 
 
 }
