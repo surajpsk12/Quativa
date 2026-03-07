@@ -24,14 +24,18 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.surajvanshsv.quativa.R
+import com.surajvanshsv.quativa.screens.navigation.Screens
 
 @Composable
 fun BottomNavigationBar(
@@ -39,22 +43,26 @@ fun BottomNavigationBar(
 ) {
 
     val items = listOf(
-        BottomNavigatationItem(
+        BottomNavigationItem(
             title = "Home",
             icon = Icons.Default.Home,
             route = "home"
         ),
-        BottomNavigatationItem(
+        BottomNavigationItem(
             title = "Saved",
             icon = Icons.Default.Favorite,
             route = "saved"
         ),
-        BottomNavigatationItem(
+        BottomNavigationItem(
+            title = "AI Quotes",
+            icon = painterResource(R.drawable.generativeicon),
+            route = Screens.AIQuotes.route
+        ),
+        BottomNavigationItem(
             title = "Profile",
             icon = Icons.Default.Person,
             route = "profile"
         )
-
     )
 
     val selectionGradient = Brush.linearGradient(
@@ -99,12 +107,26 @@ fun BottomNavigationBar(
                             )
                             .padding(12.dp)
                     ) {
-                        Icon(
-                            imageVector = item.icon,
-                            contentDescription = item.title,
-                            modifier = Modifier.size(42.dp),
-                            tint = if (isSelected) Color(0xFF40C3FF) else Color(0xFFF3F3F3)
-                        )
+                        val iconModifier = Modifier.size(42.dp)
+                        val iconTint = if (isSelected) Color(0xFF40C3FF) else Color(0xFFF3F3F3)
+                        when (val icon = item.icon) {
+                            is ImageVector -> {
+                                Icon(
+                                    imageVector = icon,
+                                    contentDescription = item.title,
+                                    modifier = iconModifier,
+                                    tint = iconTint
+                                )
+                            }
+                            is Painter -> {
+                                Icon(
+                                    painter = icon,
+                                    contentDescription = item.title,
+                                    modifier = iconModifier,
+                                    tint = iconTint
+                                )
+                            }
+                        }
                     }
                 },
                 label = {
@@ -154,9 +176,9 @@ fun BottomNavigationBar(
 
 
 
-data class BottomNavigatationItem(
+data class BottomNavigationItem(
     val title: String,
-    val icon: ImageVector,
+    val icon: Any,
     val route: String,
 )
 

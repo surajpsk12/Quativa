@@ -5,6 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.surajvanshsv.quativa.screens.aiScreen.AiQuoteScreen
 import com.surajvanshsv.quativa.screens.home.HomeScreen
 import com.surajvanshsv.quativa.screens.profile.ProfileScreen
 import com.surajvanshsv.quativa.screens.saved.SavedScreen
@@ -42,6 +43,9 @@ fun AppNavHost(){
         }
         composable(Screens.Profile.route){
             ProfileScreen(navController)
+        }
+        composable(Screens.AIQuotes.route){
+            AiQuoteScreen(navController)
         }
 
     }

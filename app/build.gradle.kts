@@ -83,6 +83,8 @@ dependencies {
     // to capture screen and convert to bitmap
     implementation("dev.shreyaspatil:capturable:2.1.0")
 
+    // Google AI SDK for Gemini
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
